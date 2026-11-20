@@ -259,6 +259,7 @@ Potomatic translates through OpenAI. Set your key with `--api-key`, or in the en
 | -------------------------- | ----- | ------------------------------------------------------------------------------------- | --------------- |
 | `--model <model>`          | `-m`  | AI model name (e.g., "gpt-5.4-mini")                                                 | `gpt-5.4-mini`  |
 | `--temperature <number>`   | -     | Creativity level (0.0-2.0); ignored by models that accept only their default          | `0.7`           |
+| `--reasoning-effort <level>` | -   | `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, or `max`. Omit to keep the model default. `none` sends temperature and skips reasoning headroom | unset |
 | `--max-tokens <number>`    | -     | Completion-token limit (1-32768); reasoning models get extra headroom automatically | Auto-calculated |
 | `--allow-unknown-model`    | -     | Accept a model that is not in the pricing catalogue, costed at the fallback rate    | `false`         |
 | `--source-language <lang>` | `-s`  | Source language code (default: "en")                                                  | `en`            |

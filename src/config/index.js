@@ -3,7 +3,7 @@ import chalk from 'chalk';
 import { z } from 'zod';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
-import { DEFAULT_MODEL } from '../providers/openai/modelCapabilities.js';
+import { DEFAULT_MODEL, REASONING_EFFORTS } from '../providers/openai/modelCapabilities.js';
 import { dirname, join } from 'path';
 import { normalizeLanguageInput } from '../utils/languageMapping.js';
 
@@ -66,6 +66,7 @@ const envSchema = z.object({
 	BATCH_SIZE: z.coerce.number().int().min(1).max(100).default(20),
 	CONCURRENT_JOBS: z.coerce.number().int().min(1).max(10).default(2),
 	TEMPERATURE: z.coerce.number().min(0).max(2).default(0.7),
+	REASONING_EFFORT: z.preprocess((value) => (value === '' || value === undefined ? undefined : value), z.enum(REASONING_EFFORTS).optional()),
 	TIMEOUT: z.coerce.number().int().min(10).max(300).default(60),
 	MAX_TOKENS: z.coerce.number().int().min(1).max(32768).optional(),
 
@@ -219,6 +220,7 @@ export const DEFAULTS = {
 	ABORT_ON_FAILURE: ENV_CONFIG.ABORT_ON_FAILURE,
 	SKIP_LANGUAGE_ON_FAILURE: ENV_CONFIG.SKIP_LANGUAGE_ON_FAILURE,
 	TEMPERATURE: ENV_CONFIG.TEMPERATURE,
+	REASONING_EFFORT: ENV_CONFIG.REASONING_EFFORT,
 	TIMEOUT: ENV_CONFIG.TIMEOUT,
 	MAX_TOKENS: ENV_CONFIG.MAX_TOKENS,
 	MAX_COST: ENV_CONFIG.MAX_COST,
@@ -290,6 +292,13 @@ export function parseCliArguments() {
 		.option('-m, --model <model>', 'AI model name (e.g., "gpt-5.4-mini")', DEFAULTS.MODEL)
 		.option('--allow-unknown-model', 'Accept a model that is not in the pricing catalogue, costed at the fallback rate', DEFAULTS.ALLOW_UNKNOWN_MODEL)
 		.option('--temperature <number>', 'Creativity level (0.0-2.0); lower = more deterministic, higher = more creative', (val) => Math.max(0, Math.min(2, parseFloat(val))), DEFAULTS.TEMPERATURE)
+		.option('--reasoning-effort <level>', `Reasoning effort (${REASONING_EFFORTS.join(', ')}). Omit to keep the model default. none sends temperature and skips reasoning headroom.`, (val) => {
+			if (!REASONING_EFFORTS.includes(val)) {
+				throw new Error(`Reasoning effort must be one of: ${REASONING_EFFORTS.join(', ')}`);
+			}
+
+			return val;
+		}, DEFAULTS.REASONING_EFFORT)
 		.option('-F, --force-translate', 'Re-translate all strings, ignoring any existing translations', DEFAULTS.FORCE_TRANSLATE)
 		.option('--input-po-path <path>', 'Path to an existing `.po` file to use as a base for merging', DEFAULTS.INPUT_PO_PATH)
 
@@ -451,6 +460,7 @@ export function createConfiguration(options) {
 		batchSize: options.batchSize || DEFAULTS.BATCH_SIZE,
 		concurrentJobs: options.jobs || DEFAULTS.CONCURRENT_JOBS,
 		temperature: options.temperature ?? DEFAULTS.TEMPERATURE,
+		reasoningEffort: options.reasoningEffort || DEFAULTS.REASONING_EFFORT,
 		timeout: options.timeout || DEFAULTS.TIMEOUT,
 		maxTokens: options.maxTokens || DEFAULTS.MAX_TOKENS,
 

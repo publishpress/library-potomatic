@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 — 2026-11-19
+
+### Added
+
+* GPT-6 chat models in the price catalogue: `gpt-6-luna`, `gpt-6-sol`, `gpt-6-astra`, `gpt-6.1-terra`, `gpt-6.1-sol`, `gpt-6.2-sol`, and `gpt-6.2-astra`. Rates are the standard short-context prices.
+* `--reasoning-effort` (or `REASONING_EFFORT`) sends `reasoning_effort` on the Chat Completions request. Leave it unset to keep the previous request. `none` also sends `temperature` and skips the reasoning token headroom. Any other value omits `temperature`.
+
 ## 1.3.0 — 2026-07-28
 
 ### Upgrade notes

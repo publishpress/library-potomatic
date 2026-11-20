@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { Provider } from '../base/Provider.js';
-import { DEFAULT_MODEL, FALLBACK_PRICING, KNOWN_MODELS, REASONING_HEADROOM_TOKENS, TRUNCATED_ERROR_CODE, buildRequestParams, getEncodingForModel, supportsLegacyMaxTokens } from './modelCapabilities.js';
+import { DEFAULT_MODEL, FALLBACK_PRICING, KNOWN_MODELS, REASONING_EFFORTS, TRUNCATED_ERROR_CODE, buildRequestParams, getEncodingForModel, reasoningHeadroomTokens } from './modelCapabilities.js';
 import { buildXmlPrompt, parseXmlResponse, buildDictionaryResponse } from '../../utils/xmlTranslation.js';
 import { loadDictionary, findDictionaryMatches } from '../../utils/dictionaryUtils.js';
 
@@ -78,6 +78,10 @@ export class OpenAIProvider extends Provider {
 
 		if (config.temperature !== undefined && (config.temperature < 0 || config.temperature > 2)) {
 			errors.push('Temperature must be between 0.0 and 2.0');
+		}
+
+		if (config.reasoningEffort && !REASONING_EFFORTS.includes(config.reasoningEffort)) {
+			errors.push(`Reasoning effort must be one of: ${REASONING_EFFORTS.join(', ')}`);
 		}
 
 		return {
@@ -426,7 +430,7 @@ export class OpenAIProvider extends Provider {
 				// Handle test mode failure simulation.
 				this._handleTestModeFailures(attempt, maxRetries);
 
-				const response = await this.client.chat.completions.create(buildRequestParams(model, messages, this._calculateMaxTokens(model, batch.length), this.config.temperature ?? 0.1));
+				const response = await this.client.chat.completions.create(buildRequestParams(model, messages, this._calculateMaxTokens(model, batch.length), this.config.temperature ?? 0.1, this.config.reasoningEffort));
 
 				// Debug: Log raw AI response at verbose level.3.
 				this.logger.debug('=== RAW AI RESPONSE ===');
@@ -711,7 +715,7 @@ export class OpenAIProvider extends Provider {
 					model,
 				},
 				request: {
-					...buildRequestParams(model, messages, this._calculateMaxTokens(model, batchSize), this.config.temperature ?? 0.1),
+					...buildRequestParams(model, messages, this._calculateMaxTokens(model, batchSize), this.config.temperature ?? 0.1, this.config.reasoningEffort),
 					systemPromptLength: messages[0].content.length,
 					userMessageLength: messages[1].content.length,
 				},
@@ -770,7 +774,7 @@ export class OpenAIProvider extends Provider {
 		// same budget before emitting any text, and that cost is largely fixed rather than
 		// proportional to the batch. Sizing from visible output alone starves small batches.
 		// Raising the ceiling is free: billing follows the tokens actually generated.
-		const reasoningHeadroom = supportsLegacyMaxTokens(model) ? 0 : REASONING_HEADROOM_TOKENS;
+		const reasoningHeadroom = reasoningHeadroomTokens(model, this.config.reasoningEffort);
 
 		// Apply reasonable bounds.
 		const minTokens = 100; // Minimum for any response.

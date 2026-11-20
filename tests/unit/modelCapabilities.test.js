@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'fs';
-import { buildRequestParams, supportsCustomTemperature, getEncodingForModel, DEFAULT_MODEL, FALLBACK_PRICING, KNOWN_MODELS, REASONING_HEADROOM_TOKENS } from '../../src/providers/openai/modelCapabilities.js';
+import { buildRequestParams, supportsCustomTemperature, getEncodingForModel, DEFAULT_MODEL, FALLBACK_PRICING, KNOWN_MODELS, REASONING_HEADROOM_TOKENS, reasoningHeadroomTokens } from '../../src/providers/openai/modelCapabilities.js';
 import { OpenAIProvider } from '../../src/providers/openai/OpenAIProvider.js';
 
 const PRICING = JSON.parse(readFileSync(new URL('../../config/openai-pricing.json', import.meta.url)));
@@ -33,6 +33,13 @@ const TEMPERATURE_SUPPORT = {
 	o3: false,
 	'o3-mini': false,
 	'o4-mini': false,
+	'gpt-6-luna': false,
+	'gpt-6-sol': false,
+	'gpt-6-astra': false,
+	'gpt-6.1-terra': false,
+	'gpt-6.1-sol': false,
+	'gpt-6.2-sol': false,
+	'gpt-6.2-astra': false,
 };
 
 describe('modelCapabilities', () => {
@@ -73,6 +80,21 @@ describe('modelCapabilities', () => {
 		it('keeps temperature for the gpt-5.4 mini and nano tiers', () => {
 			expect(buildRequestParams('gpt-5.4-mini', messages, 500, 0.3).temperature).toBe(0.3);
 			expect(buildRequestParams('gpt-5.4-nano', messages, 500, 0.3).temperature).toBe(0.3);
+		});
+
+		it('sends reasoning_effort and keeps temperature when effort is none', () => {
+			const params = buildRequestParams('gpt-6-luna', messages, 500, 0.1, 'none');
+
+			expect(params.reasoning_effort).toBe('none');
+			expect(params.temperature).toBe(0.1);
+			expect(params.max_completion_tokens).toBe(500);
+		});
+
+		it('omits temperature when a reasoning effort other than none is set', () => {
+			const params = buildRequestParams('gpt-5.4-mini', messages, 500, 0.1, 'low');
+
+			expect(params.reasoning_effort).toBe('low');
+			expect(params).not.toHaveProperty('temperature');
 		});
 
 		it('always carries the model and messages through', () => {
@@ -176,7 +198,7 @@ describe('catalog admission', () => {
 	}
 
 	it('still offers a usable model on every retained family', () => {
-		for (const family of ['gpt-4.1', 'gpt-5', 'gpt-5.1', 'gpt-5.2', 'gpt-5.4', 'gpt-5.5', 'gpt-5.6', 'o3', 'o4']) {
+		for (const family of ['gpt-4.1', 'gpt-5', 'gpt-5.1', 'gpt-5.2', 'gpt-5.4', 'gpt-5.5', 'gpt-5.6', 'gpt-6', 'o3', 'o4']) {
 			expect(
 				KNOWN_MODELS.some((m) => m.startsWith(family)),
 				family
@@ -194,6 +216,15 @@ describe('catalog admission', () => {
 			expect(provider._calculateMaxTokens('gpt-5-nano', batchSize)).toBeGreaterThan(REASONING_HEADROOM_TOKENS);
 			expect(provider._calculateMaxTokens('gpt-4.1-mini', batchSize)).toBeLessThan(REASONING_HEADROOM_TOKENS);
 		}
+	});
+
+	it('skips reasoning headroom when effort is none', () => {
+		expect(reasoningHeadroomTokens('gpt-6-luna', 'none')).toBe(0);
+		expect(reasoningHeadroomTokens('gpt-5-nano', 'none')).toBe(0);
+
+		const provider = new OpenAIProvider({ reasoningEffort: 'none' }, { debug() {}, warn() {} });
+
+		expect(provider._calculateMaxTokens('gpt-5-nano', 1)).toBeLessThan(REASONING_HEADROOM_TOKENS);
 	});
 
 	it('respects an explicitly configured max-tokens instead of adding headroom', () => {

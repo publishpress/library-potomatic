@@ -1,6 +1,6 @@
 {
 	"name": "potomatic",
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"description": "AI-powered translation utility for translating .po(t) files into multiple languages",
 	"author": "GravityKit",
 	"keywords": [
@@ -18,12 +18,12 @@
 	],
 	"homepage": "https://www.gravitykit.com/potomatic/",
 	"bugs": {
-		"url": "https://github.com/GravityKit/Potomatic/issues"
+		"url": "https://github.com/publishpress/library-potomatic/issues"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/GravityKit/Potomatic.git"
+		"url": "git+https://github.com/publishpress/library-potomatic.git"
 	},
 	"type": "module",
 	"main": "potomatic",

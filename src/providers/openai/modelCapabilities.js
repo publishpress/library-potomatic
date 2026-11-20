@@ -50,6 +50,15 @@ export const TRUNCATED_ERROR_CODE = 'OPENAI_RESPONSE_TRUNCATED';
 export const REASONING_HEADROOM_TOKENS = 4096;
 
 /**
+ * Chat Completions `reasoning_effort` values. Omitted from the request when unset.
+ *
+ * @since 1.4.0
+ *
+ * @type {Array<string>}
+ */
+export const REASONING_EFFORTS = ['none', 'minimal', 'low', 'medium', 'high', 'xhigh', 'max'];
+
+/**
  * Optional dated-snapshot suffix, e.g. `gpt-5.4-mini-2026-03-17`.
  *
  * @since 1.3.0
@@ -92,6 +101,13 @@ const CUSTOM_TEMPERATURE_PATTERN = new RegExp('^(?:gpt-4\\.1(?:-(?:mini|nano))?|
  */
 export const FALLBACK_PRICING = {
 	models: {
+		'gpt-6.2-astra': { prompt: 0.008, completion: 0.04 },
+		'gpt-6.2-sol': { prompt: 0.002, completion: 0.01 },
+		'gpt-6-astra': { prompt: 0.01, completion: 0.05 },
+		'gpt-6.1-sol': { prompt: 0.002, completion: 0.01 },
+		'gpt-6.1-terra': { prompt: 0.001, completion: 0.005 },
+		'gpt-6-sol': { prompt: 0.002, completion: 0.01 },
+		'gpt-6-luna': { prompt: 0.0001, completion: 0.0005 },
 		'gpt-5.6-sol': { prompt: 0.005, completion: 0.03 },
 		'gpt-5.6-terra': { prompt: 0.0025, completion: 0.015 },
 		'gpt-5.6-luna': { prompt: 0.001, completion: 0.006 },
@@ -184,6 +200,25 @@ export function supportsCustomTemperature(model) {
 }
 
 /**
+ * Completion-token headroom for hidden reasoning.
+ * Unset effort keeps the 1.3.0 rule. `none` skips the headroom.
+ *
+ * @since 1.4.0
+ *
+ * @param {string}      model           - Model identifier.
+ * @param {string|null} reasoningEffort - Requested effort, or unset.
+ *
+ * @return {number} Extra completion tokens.
+ */
+export function reasoningHeadroomTokens(model, reasoningEffort) {
+	if (supportsLegacyMaxTokens(model) || reasoningEffort === 'none') {
+		return 0;
+	}
+
+	return REASONING_HEADROOM_TOKENS;
+}
+
+/**
  * Builds the chat completion parameters for a model, applying the token-limit and
  * temperature rules that differ between the GPT-4 and GPT-5 families.
  *
@@ -192,11 +227,12 @@ export function supportsCustomTemperature(model) {
  * @param {string} model       - Model identifier.
  * @param {Array}  messages    - Chat messages for the request.
  * @param {number} maxTokens   - Upper bound on generated tokens.
- * @param {number} temperature - Requested sampling temperature.
+ * @param {number}      temperature     - Requested sampling temperature.
+ * @param {string|null} reasoningEffort - Requested effort, or unset.
  *
  * @return {Object} Parameters ready to pass to the chat completions endpoint.
  */
-export function buildRequestParams(model, messages, maxTokens, temperature) {
+export function buildRequestParams(model, messages, maxTokens, temperature, reasoningEffort) {
 	const params = { model, messages };
 
 	if (supportsLegacyMaxTokens(model)) {
@@ -205,7 +241,14 @@ export function buildRequestParams(model, messages, maxTokens, temperature) {
 		params.max_completion_tokens = maxTokens;
 	}
 
-	if (supportsCustomTemperature(model)) {
+	if (reasoningEffort) {
+		params.reasoning_effort = reasoningEffort;
+	}
+
+	// A set effort other than `none` rejects temperature. `none` allows it.
+	const sendTemperature = reasoningEffort === 'none' || (!reasoningEffort && supportsCustomTemperature(model));
+
+	if (sendTemperature) {
 		params.temperature = temperature;
 	}
 
