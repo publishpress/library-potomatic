@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1 — 2026-11-19
+
+### Fixed
+
+* GPT-5.6 rates now match the current standard short-context prices. `gpt-5.6-sol` is $4 / $20, `gpt-5.6-terra` is $2 / $12, and `gpt-5.6-luna` is $0.20 / $1.20 per 1M tokens. The other catalogue rates already matched that list.
+
 ## 1.4.0 — 2026-11-19
 
 ### Added

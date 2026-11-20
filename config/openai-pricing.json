@@ -32,16 +32,16 @@
 			"completion": 0.0005
 		},
 		"gpt-5.6-sol": {
-			"prompt": 0.005,
-			"completion": 0.03
+			"prompt": 0.004,
+			"completion": 0.02
 		},
 		"gpt-5.6-terra": {
-			"prompt": 0.0025,
-			"completion": 0.015
+			"prompt": 0.002,
+			"completion": 0.012
 		},
 		"gpt-5.6-luna": {
-			"prompt": 0.001,
-			"completion": 0.006
+			"prompt": 0.0002,
+			"completion": 0.0012
 		},
 		"gpt-5.5": {
 			"prompt": 0.005,
