@@ -6,7 +6,7 @@ PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomat
 
 ### Fixed
 
-* Prettier on  so the npm publish workflow passes .
+* Prettier on `src/config/index.js` so the npm publish workflow passes `prepublishOnly`.
 
 ## 1.4.4 — 2026-11-27
 
