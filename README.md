@@ -6,9 +6,19 @@
 
 <br />
 
-**Potomatic** is a command-line tool for translating `.pot` (Portable Object Template) files into multiple languages using AI (currently OpenAI). We built it to streamline large-scale localization of WordPress products, a process we detail in [this behind‑the‑scenes article](https://www.gravitykit.com/translating-wordpress-plugins-using-chatgpt/).
+## Fork
 
-While [`gpt-po`](https://github.com/ryanhex53/gpt-po) helped us get started, we needed smarter retry logic, cost controls, and better visibility into large jobs, among other things. **Potomatic** delivers those improvements and more, as well adds fine‑grained prompt tuning through a built‑in [A/B testing utility](#ab-testing-for-prompt-optimization).
+This repository is the PublishPress fork of [Potomatic](https://github.com/GravityKit/Potomatic).
+
+GravityKit released [Potomatic 1.3.0](https://github.com/GravityKit/Potomatic/releases/tag/v1.3.0). PublishPress forked that version.
+
+PublishPress released **1.4.0** as the first version of this fork. The npm package name is `@publishpress/potomatic`.
+
+The GravityKit npm package name is `potomatic`.
+
+**Potomatic** is a command-line tool for translating `.pot` (Portable Object Template) files into multiple languages using AI (currently OpenAI). GravityKit built it to streamline large-scale localization of WordPress products. GravityKit describes that work in [this article](https://www.gravitykit.com/translating-wordpress-plugins-using-chatgpt/).
+
+[`gpt-po`](https://github.com/ryanhex53/gpt-po) was the start for GravityKit. GravityKit then added retry logic, cost controls, job visibility, and an [A/B testing utility](#ab-testing-for-prompt-optimization) for prompt tuning.
 
 ## Disclaimer
 
@@ -20,6 +30,7 @@ For improved results, consider refining your prompt, using a higher-tier model, 
 
 ## Table of Contents
 
+* [Fork](#fork)
 * [Key Features](#key-features)
 * [Prerequisites](#prerequisites)
 * [Setup](#setup)
@@ -448,4 +459,6 @@ npm run ab-prompt-test # Prompt A/B tester
 
 ## Acknowledgments
 
-Hat tip to [ryanhex53](https://github.com/ryanhex53) for the original [gpt-po](https://github.com/ryanhex53/gpt-po) that inspired this project.
+[GravityKit](https://github.com/GravityKit/Potomatic) built Potomatic through version 1.3.0. PublishPress forked that version and released 1.4.0.
+
+Hat tip to [ryanhex53](https://github.com/ryanhex53) for the original [gpt-po](https://github.com/ryanhex53/gpt-po) that inspired Potomatic.

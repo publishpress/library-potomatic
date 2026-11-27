@@ -1,10 +1,18 @@
+# Changelog
+
+PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomatic) at version 1.3.0. PublishPress released **1.4.0** as the first version of this fork. Versions 1.3.0 and earlier are GravityKit releases. The npm package name is `@publishpress/potomatic`.
+
+## 1.4.3 — 2026-11-27
+
+### Changed
+
+* The README and the changelog state the fork point. PublishPress forked GravityKit Potomatic at 1.3.0. The first PublishPress release is 1.4.0.
+
 ## 1.4.2 — 2026-11-27
 
 ### Changed
 
-* npm package name is `@publishpress/potomatic` (PublishPress fork; not the `potomatic` package on npmjs.com).
-
-# Changelog
+* npm package name is `@publishpress/potomatic`. That name is this fork. It is not the `potomatic` package on npmjs.com.
 
 ## 1.4.1 — 2026-11-19
 
@@ -14,12 +22,16 @@
 
 ## 1.4.0 — 2026-11-19
 
+First PublishPress release. The fork starts from [GravityKit Potomatic 1.3.0](https://github.com/GravityKit/Potomatic/releases/tag/v1.3.0).
+
 ### Added
 
 * GPT-6 chat models in the price catalogue: `gpt-6-luna`, `gpt-6-sol`, `gpt-6-astra`, `gpt-6.1-terra`, `gpt-6.1-sol`, `gpt-6.2-sol`, and `gpt-6.2-astra`. Rates are the standard short-context prices.
 * `--reasoning-effort` (or `REASONING_EFFORT`) sends `reasoning_effort` on the Chat Completions request. Leave it unset to keep the previous request. `none` also sends `temperature` and skips the reasoning token headroom. Any other value omits `temperature`.
 
 ## 1.3.0 — 2026-07-28
+
+Upstream [GravityKit Potomatic](https://github.com/GravityKit/Potomatic/releases/tag/v1.3.0) release. PublishPress forked this version. Entries from 1.3.0 through 1.0.0 are GravityKit releases.
 
 ### Upgrade notes
 
