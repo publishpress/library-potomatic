@@ -2,6 +2,13 @@
 
 PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomatic) at version 1.3.0. PublishPress released **1.4.0** as the first version of this fork. Versions 1.3.0 and earlier are GravityKit releases. The npm package name is `@publishpress/potomatic`.
 
+## 1.4.6 — 2026-11-27
+
+### Fixed
+
+* `form-data` 4.0.6 stops CRLF injection in field names and filenames (GHSA-hmw2-7cc7-3qxx).
+* `form-data` 4.0.6 uses a cryptographic random boundary (GHSA-fjxv-7rqg-78g4).
+
 ## 1.4.5 — 2026-11-27
 
 ### Fixed
