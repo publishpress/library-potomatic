@@ -2,94 +2,25 @@
 
 PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomatic) at version 1.3.0. PublishPress released **1.4.0** as the first version of this fork. Versions 1.3.0 and earlier are GravityKit releases. The npm package name is `@publishpress/potomatic`.
 
-## 1.4.19 — 2026-11-27
-
-### Fixed
-
-* `minimatch` 3.1.5 stops a regular-expression denial of service (GHSA-3ppc-4f35-3m26).
-
-## 1.4.18 — 2026-11-27
-
-### Fixed
-
-* `vitest` 5.1.2 and `@vitest/coverage-v8` 5.1.2 replace 3.1.4. This stops the Vitest UI file read (GHSA-5xrq-8626-4rwp). `@vitest/mocker` is 5.1.2. `vite` is 8.4.0.
-
-## 1.4.17 — 2026-11-27
+## 1.4.6 — 2026-11-27
 
 ### Changed
 
 * The package requires Node.js 22.12 or newer. CI and npm publish use Node.js 22.
-
-## 1.4.16 — 2026-11-27
-
-### Fixed
-
-* `rollup` 4.68.9 stops a path traversal file write (GHSA-mw96-cpmx-2vgc).
-
-## 1.4.15 — 2026-11-27
-
-### Fixed
-
-* `flatted` 3.4.4 stops unbounded recursion in `parse()` (GHSA-25h7-pfq9-p65f).
-
-## 1.4.14 — 2026-11-27
-
-### Fixed
-
-* `js-yaml` 4.3.2 stops prototype pollution in the merge key (GHSA-mh29-5h37-fv8m).
-
-## 1.4.13 — 2026-11-27
-
-### Fixed
-
-* `postcss` 8.5.33 escapes `</style>` in CSS stringify output (GHSA-qx2v-qp2m-jg93).
-
-## 1.4.12 — 2026-11-27
-
-### Fixed
-
-* `brace-expansion` 1.1.22 stops a regular-expression denial of service (GHSA-v6h2-p8h4-qcjw).
-
-## 1.4.11 — 2026-11-27
-
-### Fixed
-
-* `vite` 6.4.6 stops the dev server from serving a file whose name starts like the public directory (GHSA-g4jq-h2w9-997c).
-
-## 1.4.10 — 2026-11-27
-
-### Fixed
-
-* `nanoid` 3.3.20 stops an infinite loop when the size is negative (GHSA-28wg-ghj8-5hjv).
-
-## 1.4.9 — 2026-11-27
-
-### Fixed
-
-* `source-map-js` 1.2.4 replaces 1.2.1. `npm audit` no longer reports this package.
-
-## 1.4.8 — 2026-11-27
-
-### Fixed
-
-* `tmp` 0.2.7 replaces 0.2.3. The release rejects a prefix, postfix, or template that is not a string, and it checks relative paths.
-
-## 1.4.7 — 2026-11-27
+* `openai` 6.49.0 replaces 4.103.0. The chat completions call stays the same. `form-data` is no longer a dependency.
 
 ### Fixed
 
 * `zod` 4.6.7 stops memory exhaustion on a large array (GHSA-mrhx-c7xc-m3w5).
-
-### Changed
-
-* `openai` 6.49.0 replaces 4.103.0. Release 4 accepts only Zod 3, so Zod 4.6.7 does not install beside it. The chat completions call stays the same.
-
-## 1.4.6 — 2026-11-27
-
-### Fixed
-
-* `form-data` 4.0.6 stops CRLF injection in field names and filenames (GHSA-hmw2-7cc7-3qxx).
-* `form-data` 4.0.6 uses a cryptographic random boundary (GHSA-fjxv-7rqg-78g4).
+* `vitest` 5.1.2 and `@vitest/coverage-v8` 5.1.2 replace 3.1.4. This stops the Vitest UI file read (GHSA-5xrq-8626-4rwp). `@vitest/mocker` is 5.1.2. `vite` is 8.4.0.
+* `minimatch` 3.1.5 stops a regular-expression denial of service (GHSA-3ppc-4f35-3m26).
+* `flatted` 3.4.4 stops unbounded recursion in `parse()` (GHSA-25h7-pfq9-p65f).
+* `js-yaml` 4.3.2 stops prototype pollution in the merge key (GHSA-mh29-5h37-fv8m).
+* `postcss` 8.5.34 escapes `</style>` in CSS stringify output (GHSA-qx2v-qp2m-jg93).
+* `brace-expansion` 1.1.22 stops a regular-expression denial of service (GHSA-v6h2-p8h4-qcjw).
+* `nanoid` 3.3.20 stops an infinite loop when the size is negative (GHSA-28wg-ghj8-5hjv).
+* `source-map-js` 1.2.4 replaces 1.2.1.
+* `tmp` 0.2.7 rejects a prefix, postfix, or template that is not a string, and it checks relative paths.
 
 ## 1.4.5 — 2026-11-27
 
