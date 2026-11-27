@@ -14,6 +14,13 @@ GravityKit released [Potomatic 1.3.0](https://github.com/GravityKit/Potomatic/re
 
 PublishPress released **1.4.0** as the first version of this fork. The npm package name is `@publishpress/potomatic`.
 
+Install from npmjs.com (PublishPress org):
+
+```bash
+npm install @publishpress/potomatic
+```
+
+
 The GravityKit npm package name is `potomatic`.
 
 **Potomatic** is a command-line tool for translating `.pot` (Portable Object Template) files into multiple languages using AI (currently OpenAI). GravityKit built it to streamline large-scale localization of WordPress products. GravityKit describes that work in [this article](https://www.gravitykit.com/translating-wordpress-plugins-using-chatgpt/).

@@ -2,7 +2,7 @@
 	"name": "@publishpress/potomatic",
 	"version": "1.4.3",
 	"description": "AI-powered translation utility for translating .po(t) files into multiple languages",
-	"author": "GravityKit",
+	"author": "PublishPress",
 	"keywords": [
 		"ai",
 		"gpt",
@@ -46,7 +46,8 @@
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
 		"format": "prettier --write \"**/*.{js,json}\"",
-		"format:check": "prettier --check \"**/*.{js,json}\""
+		"format:check": "prettier --check \"**/*.{js,json}\"",
+		"prepublishOnly": "npm run lint && npm run format:check && npm test"
 	},
 	"engines": {
 		"node": ">=18"
@@ -76,5 +77,9 @@
 		"prettier": "^3.5.3",
 		"tmp": "^0.2.3",
 		"vitest": "^3.1.4"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/"
 	}
 }

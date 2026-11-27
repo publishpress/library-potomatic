@@ -6,6 +6,8 @@ PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomat
 
 ### Changed
 
+* Published on [npmjs.com](https://www.npmjs.com/package/@publishpress/potomatic) under the `publishpress` org. Grant the `developers` team with `npm access grant` (see `docs/npm.md`).
+
 * The README and the changelog state the fork point. PublishPress forked GravityKit Potomatic at 1.3.0. The first PublishPress release is 1.4.0.
 
 ## 1.4.2 — 2026-11-27
