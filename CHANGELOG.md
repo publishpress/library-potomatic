@@ -1,3 +1,9 @@
+## 1.4.2 — 2026-11-27
+
+### Changed
+
+* npm package name is `@publishpress/potomatic` (PublishPress fork; not the `potomatic` package on npmjs.com).
+
 # Changelog
 
 ## 1.4.1 — 2026-11-19
