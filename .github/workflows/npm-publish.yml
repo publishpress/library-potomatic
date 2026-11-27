@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@49933ea5286caeca864e77a7b3627960845df78 # v4
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           registry-url: https://registry.npmjs.org
