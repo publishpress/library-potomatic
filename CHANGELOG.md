@@ -2,6 +2,12 @@
 
 PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomatic) at version 1.3.0. PublishPress released **1.4.0** as the first version of this fork. Versions 1.3.0 and earlier are GravityKit releases. The npm package name is `@publishpress/potomatic`.
 
+## 1.4.17 — 2026-11-27
+
+### Changed
+
+* The package requires Node.js 22.12 or newer. CI and npm publish use Node.js 22.
+
 ## 1.4.16 — 2026-11-27
 
 ### Fixed
