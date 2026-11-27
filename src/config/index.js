@@ -292,13 +292,18 @@ export function parseCliArguments() {
 		.option('-m, --model <model>', 'AI model name (e.g., "gpt-5.4-mini")', DEFAULTS.MODEL)
 		.option('--allow-unknown-model', 'Accept a model that is not in the pricing catalogue, costed at the fallback rate', DEFAULTS.ALLOW_UNKNOWN_MODEL)
 		.option('--temperature <number>', 'Creativity level (0.0-2.0); lower = more deterministic, higher = more creative', (val) => Math.max(0, Math.min(2, parseFloat(val))), DEFAULTS.TEMPERATURE)
-		.option('--reasoning-effort <level>', `Reasoning effort (${REASONING_EFFORTS.join(', ')}). Omit to keep the model default. none sends temperature and skips reasoning headroom.`, (val) => {
-			if (!REASONING_EFFORTS.includes(val)) {
-				throw new Error(`Reasoning effort must be one of: ${REASONING_EFFORTS.join(', ')}`);
-			}
+		.option(
+			'--reasoning-effort <level>',
+			`Reasoning effort (${REASONING_EFFORTS.join(', ')}). Omit to keep the model default. none sends temperature and skips reasoning headroom.`,
+			(val) => {
+				if (!REASONING_EFFORTS.includes(val)) {
+					throw new Error(`Reasoning effort must be one of: ${REASONING_EFFORTS.join(', ')}`);
+				}
 
-			return val;
-		}, DEFAULTS.REASONING_EFFORT)
+				return val;
+			},
+			DEFAULTS.REASONING_EFFORT
+		)
 		.option('-F, --force-translate', 'Re-translate all strings, ignoring any existing translations', DEFAULTS.FORCE_TRANSLATE)
 		.option('--input-po-path <path>', 'Path to an existing `.po` file to use as a base for merging', DEFAULTS.INPUT_PO_PATH)
 
