@@ -2,6 +2,16 @@
 
 PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomatic) at version 1.3.0. PublishPress released **1.4.0** as the first version of this fork. Versions 1.3.0 and earlier are GravityKit releases. The npm package name is `@publishpress/potomatic`.
 
+## 1.4.7 — 2026-11-27
+
+### Fixed
+
+* `zod` 4.6.7 stops memory exhaustion on a large array (GHSA-mrhx-c7xc-m3w5).
+
+### Changed
+
+* `openai` 6.49.0 replaces 4.103.0. Release 4 accepts only Zod 3, so Zod 4.6.7 does not install beside it. The chat completions call stays the same.
+
 ## 1.4.6 — 2026-11-27
 
 ### Fixed
