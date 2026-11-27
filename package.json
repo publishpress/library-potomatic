@@ -1,6 +1,6 @@
 {
 	"name": "@publishpress/potomatic",
-	"version": "1.4.17",
+	"version": "1.4.18",
 	"description": "AI-powered translation utility for translating .po(t) files into multiple languages",
 	"author": "PublishPress",
 	"keywords": [

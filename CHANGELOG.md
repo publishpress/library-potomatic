@@ -2,6 +2,12 @@
 
 PublishPress forked [GravityKit Potomatic](https://github.com/GravityKit/Potomatic) at version 1.3.0. PublishPress released **1.4.0** as the first version of this fork. Versions 1.3.0 and earlier are GravityKit releases. The npm package name is `@publishpress/potomatic`.
 
+## 1.4.18 — 2026-11-27
+
+### Fixed
+
+* `vitest` 5.1.2 and `@vitest/coverage-v8` 5.1.2 replace 3.1.4. This stops the Vitest UI file read (GHSA-5xrq-8626-4rwp). `@vitest/mocker` is 5.1.2. `vite` is 8.4.0.
+
 ## 1.4.17 — 2026-11-27
 
 ### Changed
